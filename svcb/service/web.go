@@ -10,7 +10,8 @@ import (
 	"github.com/tetratelabs/go2sky/reporter"
 )
 
-var tracer go2sky.Tracer
+// Tracer Golbal Variable
+var Tracer *go2sky.Tracer
 
 // StartWebServer starts the default http web server on the given port
 func StartWebServer() {
@@ -21,13 +22,13 @@ func StartWebServer() {
 	}
 	defer r.Close()
 
-	tracer, err := go2sky.NewTracer(os.Getenv("SVCB_NAME"), go2sky.WithReporter(r))
+	Tracer, err = go2sky.NewTracer(os.Getenv("SVCB_NAME"), go2sky.WithReporter(r))
 	if err != nil {
 		log.Fatalf("create tracer error %v \n", err)
 	}
-	tracer.WaitUntilRegister()
+	Tracer.WaitUntilRegister()
 
-	sm, err := go2sky_http.NewServerMiddleware(tracer)
+	sm, err := go2sky_http.NewServerMiddleware(Tracer)
 	if err != nil {
 		log.Fatalf("create server middleware error %v \n", err)
 	}

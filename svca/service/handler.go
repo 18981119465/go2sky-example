@@ -79,7 +79,7 @@ func getQuote(ctx context.Context, accountID string) (model.Quote, error) {
 	req, _ := http.NewRequest("GET", addr, nil)
 	req = req.WithContext(ctx)
 
-	client, err := go2sky_http.NewClient(tracer)
+	client, err := go2sky_http.NewClient(Tracer)
 	if err != nil {
 		log.Fatalf("create client error %v \n", err)
 	}
