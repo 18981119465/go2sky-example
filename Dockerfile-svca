@@ -1,15 +1,9 @@
-FROM golang:1.10-alpine AS build-env
-RUN apk --no-cache add git bzr mercurial
-ENV D=/go/src/github.com/iyabchen/go-zipkin-example
-# deps - using the closest thing to an official dependency tool: https://github.com/golang/dep
-RUN go get -u github.com/golang/dep/...
-COPY ./ $D/
-RUN cd $D/ && dep ensure -v --vendor-only
-RUN cd $D/svca/cmd && go build -o /tmp/svca 
-
-
-# final stage
 FROM alpine:3.7
 WORKDIR /app
-COPY --from=build-env /tmp/svca /app/
+ENV SKYWALKING_BACKEND_SERVICE localhost:11800
+ENV SVCA_NAME go_demo_svca
+ENV SVCA_PORT 18080
+ENV SVCB_HOST localhost
+ENV SVCB_PORT 18081
+ADD /svca/cmd/svca /app/svca
 ENTRYPOINT /app/svca
