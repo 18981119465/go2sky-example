@@ -19,7 +19,7 @@ please execute the shell script "create-docker.sh"
 * for svca: 
 
   ``````shell
-  docker run -d --name go-demo-svca -e SKYWALKING_BACKEND_SERVICE=docker_host_ip:11800 -e -e SVCA_NAME=go_demo_svca -e SVCA_PORT=18080 SVCB_HOST=docker_host_ip -SVCB_PORT=18081 -p 18080:18080 lish/go2sky-demo-svca:0.1
+  docker run -d --name go-demo-svca -e SKYWALKING_BACKEND_SERVICE=docker_host_ip:11800 -e SVCA_NAME=go_demo_svca -e SVCA_PORT=18080 -e SVCB_HOST=docker_host_ip -SVCB_PORT=18081 -p 18080:18080 lish/go2sky-demo-svca:0.1
   ``````
 
 * for svcb: 
@@ -35,4 +35,4 @@ please execute the shell script "create-docker.sh"
 * service  registry: passed
 * service query: passed
 * topology graph: passed
-* tracing: failed (Cause unknown)
+* tracing: passed
